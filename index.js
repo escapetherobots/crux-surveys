@@ -1,8 +1,9 @@
 const express = require('express');
+const keys = require('./config/keys');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-const keys = require('./config/keys');
+
 
 // order of operation: model first, then passport
 require('./models/User');
