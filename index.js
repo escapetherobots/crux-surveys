@@ -1,11 +1,15 @@
 const express = require('express');
+require('./services/passport');
 
+// setup Express
 const app = express();
+// run express handlers
+require('./routes/authRoutes')(app);
 
-app.get('/', (req, res) => {
-  res.send({ hi: "world"});
-});
 
+//====================================================
+// PORTS
+//====================================================
 // get environment var from Heroku
 const PORT = process.env.PORT || 5000;
 
