@@ -12,5 +12,14 @@ module.exports = (app) => {
   );
 
   // when this route is handled, passport.auth for google will provide auth code!
-  app.get('/auth/google/callback', passport.authenticate('google'))
+  app.get('/auth/google/callback', passport.authenticate('google'));
+
+  app.get('/api/logout', (req, res) => {
+    req.logout(); // will destroy the cookie
+    res.send(req.user);
+  });
+
+  app.get('/api/current_user', (req, res) => {
+    res.send(req.user); //show the requested user in the response
+  });
 }
