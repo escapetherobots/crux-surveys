@@ -15,7 +15,7 @@ mongoose.connect(keys.mongoURI);
 
 // setup Express
 const app = express();
-console.log('Google key:', keys.googleClientID);
+
 //====================================================
 // MiddleWare to integrate passport and cookie sessions
 //====================================================
