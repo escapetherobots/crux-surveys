@@ -33,8 +33,6 @@ passport.deserializeUser( (id, done) => { // id = the id stored in the cookie
 // setup Strategy - Google
 // this strategy has a property with string of 'google'
 // that will be used with the passport.authenticate method below!!!!!!!!!!!
-
-console.log('env vars', process.env.GOOGLE_CLIENT_ID);
 passport.use(
   new GoogleStrategy(
     {

@@ -9,7 +9,6 @@ const keys = require('./config/keys');
 require('./models/User');
 require('./services/passport');
 
-console.log('where are my keys>>>>', process.env.GOOGLE_CLIENT_ID);
 // connect to cloud MongoDB
 mongoose.connect(keys.mongoURI);
 
