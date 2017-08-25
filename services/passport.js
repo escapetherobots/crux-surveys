@@ -1,6 +1,5 @@
 // main config library for passport
 const passport = require('passport');
-
 // main strategy - google
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 // mongoose library
@@ -28,11 +27,8 @@ passport.deserializeUser( (id, done) => { // id = the id stored in the cookie
     })
 });
 
-
 // ******************************
-// setup Strategy - Google
-// this strategy has a property with string of 'google'
-// that will be used with the passport.authenticate method below!!!!!!!!!!!
+// setup Strategy - Google - with es2017 async/await
 passport.use(
   new GoogleStrategy(
     {
@@ -41,38 +37,64 @@ passport.use(
       callbackURL: '/auth/google/callback',
       proxy: true // allow proxy requests with heroku
     },
-    (accessToken, refreshToken, profile, done) => {
-      // console.log("google access token:::",accessToken);
-      // console.log("refresh token:::",refreshToken);
-      // console.log("profile:::",profile.id);
-      // create a new user instance and then save it to the db through mongoose.
-      // check if user already exists first!
-      // this returns a promise
-      User.findOne({googleId: profile.id})
-        .then(
-          (existingUser) => {
-            if(existingUser){
-              // user exists:
-              console.log('cookie key:::::',keys.cookieKey);
-              console.log('existing user confirmed', existingUser.id);
-              done(null, existingUser);
-            } else {
-              // no user exists with profile.id:
-              new User({googleId: profile.id})
-                .save()
-                .then( //this will handle the newly created user which is returned from DB
-                  (user) => {
-                    console.log('new user created');
-                    done(null, user);
-                  }
-                );  // end then method
-            }
-          },
-          (error) => {
-            console.log('user query promise fail', error);
-          }
-        );
+    async (accessToken, refreshToken, profile, done) => {
+      const existingUser = await User.findOne({googleId: profile.id});
 
+      if(existingUser){
+        return done(null, existingUser);
+      }
+
+      const user = await new User({googleId: profile.id}).save();
+      return done(null, user);
     }
-  )
+  ) // end GoogleStrategy
 );
+
+
+// ******************************
+// setup Strategy - Google
+// this strategy has a property with string of 'google'
+// that will be used with the passport.authenticate method below!!!!!!!!!!!
+// passport.use(
+//   new GoogleStrategy(
+//     {
+//       clientID: keys.googleClientID,
+//       clientSecret: keys.googleClientSecret,
+//       callbackURL: '/auth/google/callback',
+//       proxy: true // allow proxy requests with heroku
+//     },
+//     (accessToken, refreshToken, profile, done) => {
+//       // console.log("google access token:::",accessToken);
+//       // console.log("refresh token:::",refreshToken);
+//       // console.log("profile:::",profile.id);
+//       // create a new user instance and then save it to the db through mongoose.
+//       // check if user already exists first!
+//       // this returns a promise
+//       User.findOne({googleId: profile.id})
+//         .then(
+//           (existingUser) => {
+//             if(existingUser){
+//               // user exists:
+//               // console.log('cookie key:::::',keys.cookieKey);
+//               // console.log('existing user confirmed', existingUser.id);
+//               done(null, existingUser);
+//             } else {
+//               // no user exists with profile.id:
+//               new User({googleId: profile.id})
+//                 .save()
+//                 .then( //this will handle the newly created user which is returned from DB
+//                   (user) => {
+//                     console.log('new user created');
+//                     done(null, user);
+//                   }
+//                 );  // end then method
+//             }
+//           },
+//           (error) => {
+//             console.log('user query promise fail', error);
+//           }
+//         );
+//
+//     }
+//   )
+// );
