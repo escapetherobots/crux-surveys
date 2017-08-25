@@ -3,9 +3,18 @@ import React from 'react';
 class Header extends React.Component{
   render(){
     return (
-      <div>
-        <h1>Header</h1>
-      </div>
+      <nav className="teal lighten-2">
+        <div className="nav-wrapper container">
+          <a className="left brand-logo">
+            Crux Surveys
+          </a>
+          <ul className="right">
+            <li>
+              <a>Login with Google</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     );
   }
 }
