@@ -1,5 +1,4 @@
 // main config library for passport
-const keys = require('./../config/keys');
 const passport = require('passport');
 
 // main strategy - google
@@ -9,6 +8,7 @@ const mongoose = require('mongoose');
 
 // this is to fetch data from that collection: only 1 argument
 const User = mongoose.model('users');
+const keys = require('./../config/keys');
 
 //====================================================
 // STRATEGY - GOOGLE
@@ -33,7 +33,7 @@ passport.deserializeUser( (id, done) => { // id = the id stored in the cookie
 // setup Strategy - Google
 // this strategy has a property with string of 'google'
 // that will be used with the passport.authenticate method below!!!!!!!!!!!
-console.log('Google key passport:', keys.googleClientID);
+
 console.log('env vars', process.env.GOOGLE_CLIENT_ID);
 passport.use(
   new GoogleStrategy(
