@@ -4,11 +4,11 @@ import * as actions from './../actions';
 import { connect } from 'react-redux';
 
 import Header from './Header';
+import Landing from './Landing';
 
 // dummy components
 const Dashboard = () => <h2>Dashboard</h2>
 const SurveyNew = () => <h2>SurveyNew</h2>
-const Landing = () => <h2>Landing</h2>
 
 // not functional component - functional components don't have life cycle methods
 export class App extends React.Component{

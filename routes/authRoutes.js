@@ -12,11 +12,20 @@ module.exports = (app) => {
   );
 
   // when this route is handled, passport.auth for google will provide auth code!
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  // this will reroute from the callback to passport.authenticate('google')
+  // passport.authenticate is a middleware!!!
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),  // 1st middleware
+    (req, res) => {                   // 2nd middleware - res.redirect
+      res.redirect('/surveys');
+    }
+  );
 
   app.get('/api/logout', (req, res) => {
     req.logout(); // will destroy the cookie
-    res.send(req.user);
+    // res.send(req.user);
+    res.redirect('/');
   });
 
   app.get('/api/current_user', (req, res) => {

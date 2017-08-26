@@ -27,8 +27,8 @@ import { FETCH_USER } from './types';
 // fetchUser will also be passed the dispatch method thanks to THUNK
 export const fetchUser = () =>
   async (dispatch) => {
-    const result = await axios.get('/api/current_user');
-    dispatch({type: FETCH_USER, payload: result});
+    const { data } = await axios.get('/api/current_user');
+    dispatch({type: FETCH_USER, payload: data});
   };
 
 // export const fetchUser = () => async dispatch => {
