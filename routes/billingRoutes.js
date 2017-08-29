@@ -21,6 +21,8 @@ module.exports = app => {
     // passport.initialize();
     // passport.session();
     //console.log(charge);
+
+    // req.user is the currently authorized user through the user model
     req.user.credits += 5;
     const user = await req.user.save(); // async request
 
