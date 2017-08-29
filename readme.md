@@ -9,6 +9,10 @@
 
   D. Create .gitignore
 
+  E. Add heroku-postbuild scripts
+
+  F. Make sure to add all heroku environment vars
+
 ```
-<p>Code Samples</p>
+<p>Code</p>
 ```
