@@ -14,7 +14,11 @@ import reducers from './reducers'; // from index.js in reducers folder
 // ============================================
 // 1st arg = callback that returns array of reducers, 2nd arg = object, 3rd arg = method for middleware like thunk
 // const store = createStore( () => [], {}, applyMiddleware());
-const store = createStore( reducers, {}, applyMiddleware(reduxThunk));
+const store = createStore(
+  reducers,
+  {},
+  applyMiddleware(reduxThunk)
+);
 
 ReactDOM.render(
   <Provider store={store}>

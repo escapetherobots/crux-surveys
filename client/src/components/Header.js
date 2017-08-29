@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import StripeWrapper from './StripeWrapper'; // In Demo this is: Payments
+
 class Header extends React.Component{
   renderContent(){
     switch(this.props.auth){
@@ -12,9 +14,11 @@ class Header extends React.Component{
           <li><a href="/auth/google">Login With Google</a></li>
         );
       default:
-        return (
-          <li><a href="/api/logout">Logout</a></li>
-        );
+        return [
+          <li key="stripeWrapper"><StripeWrapper /></li>,
+          <li key="userCredits" style={{margin: '0 10px'}}>Credits: {this.props.auth.credits}</li>,
+          <li key="logoutButton"><a href="/api/logout">Logout</a></li>
+        ];
     }
   }
 

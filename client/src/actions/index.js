@@ -38,3 +38,9 @@ export const fetchUser = () =>
 //   let { data } = await axios.get('/api/current_user');
 //   dispatch({ type: FETCH_USER, payload: data });
 //
+
+// handle the token from the stripe form
+export const handleToken = (token) => async dispatch => {
+   const res = await axios.post('/api/stripe', token);
+   dispatch({type: FETCH_USER, payload: res.data})
+};
