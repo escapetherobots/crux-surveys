@@ -7,6 +7,8 @@ const keys = require('./config/keys');
 
 // order of operation: model first, then passport
 require('./models/User');
+require('./models/Survey');
+
 require('./services/passport');
 
 // connect to cloud MongoDB
@@ -36,6 +38,7 @@ app.use(passport.session());
 // run express handlers
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 
 // production environment setup
 if(process.env.NODE_ENV === 'production') {
