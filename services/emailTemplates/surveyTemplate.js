@@ -24,10 +24,10 @@ module.exports = (survey) => {
             </tr>
             <tr>
               <td>
-                <a href="${keys.redirectDomain}/api/surveys/thanks">Yes</a>
+                <a href="${keys.redirectDomain}/api/surveys/${survey.id}/yes">Yes</a>
               </td>
               <td>
-                <a href="${keys.redirectDomain}/api/surveys/thanks">No</a>
+                <a href="${keys.redirectDomain}/api/surveys/${survey.id}/no">No</a>
               </td>
             </tr>
           </table>

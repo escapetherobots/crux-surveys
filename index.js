@@ -12,7 +12,7 @@ require('./models/Survey');
 require('./services/passport');
 
 // connect to cloud MongoDB
-mongoose.connect(keys.mongoURI);
+mongoose.connect(keys.mongoURI, {useMongoClient: true});
 
 // setup Express
 const app = express();

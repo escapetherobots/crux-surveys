@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER } from './types';
+import { FETCH_USER, FETCH_SURVEYS } from './types';
 
 // with redux-thunk setup it will inspect the return value of our functions below
 // if it sees a function as return value, it will automatically call the returned function
@@ -42,5 +42,20 @@ export const fetchUser = () =>
 // handle the token from the stripe form
 export const handleToken = (token) => async dispatch => {
    const res = await axios.post('/api/stripe', token);
-   dispatch({type: FETCH_USER, payload: res.data})
+   dispatch({type: FETCH_USER, payload: res.data});
+};
+
+
+// history argument is provided by withRouter method on SurveyFormReview.js
+export const submitSurvey = (values, history) => async dispatch => {
+  const res = await axios.post('/api/surveys', values);
+  // push to the route and then dispatch
+  history.push('/surveys');
+  dispatch({ type: FETCH_USER, payload: res.data});
+
+};
+
+export const fetchSurveys = () => async dispatch => {
+  const res = await axios.get('/api/surveys');
+  dispatch({ type: FETCH_SURVEYS, payload: res.data});
 };
